@@ -1,6 +1,6 @@
 Env/
 dataset/*
 
-*.pkl
-*.joblib
+
+
 unseenData/*
