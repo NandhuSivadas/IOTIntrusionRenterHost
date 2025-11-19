@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     # Maps the root URL of the app to the 'index' view in views.py
     # When a user visits the base URL (e.g., /), Django will call the index function.
-    path('', views.index, name='index'),
+    path('index/',views.index, name='index'),
+    path('', views.home, name='home'),
 ]
 

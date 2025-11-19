@@ -198,3 +198,9 @@ def index(request):
             context['error'] = f'An unexpected error occurred: {str(e)}'
 
     return render(request, 'ids_app/index.html', context)
+
+
+
+def home(request):
+   
+    return render(request, 'ids_app/home.html')
