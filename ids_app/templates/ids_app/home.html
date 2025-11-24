@@ -9,28 +9,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FONTS: Rajdhani (Headings) & Titillium Web (Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-brand: #4f46e5;
-            --text-main: #334155;
+            /* NEW PALETTE: Stealth Mode */
+            --brand-primary: #00f2fe; /* Electric Cyan */
+            --brand-secondary: #4facfe; /* Deep Blue */
+            --brand-accent: #00ff9d; /* Terminal Green */
+            --bg-dark: #020617; /* Ultra Dark Slate */
+            --text-main: #e2e8f0;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Titillium Web', sans-serif;
             color: var(--text-main);
             overflow-x: hidden;
+            background-color: var(--bg-dark);
+            font-size: 1.15rem;
         }
 
-        h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+        h1, h2, h3, .navbar-brand, .btn { 
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
 
-        /* --- ANIMATED BACKGROUND (Same as Dashboard) --- */
+        /* --- GRID BACKGROUND --- */
         .hero-wrapper {
-            background: linear-gradient(-45deg, #1e1b4b, #312e81, #4338ca, #3730a3);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: var(--bg-dark);
+            /* Cyber Grid Pattern */
+            background-image: 
+                linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
             min-height: 100vh;
             position: relative;
             display: flex;
@@ -38,140 +51,248 @@
             overflow: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Decorative Shapes */
-        .shape {
+        /* Floating Glows (Subtle) */
+        .glow {
             position: absolute;
-            filter: blur(80px);
+            border-radius: 50%;
+            filter: blur(120px);
             z-index: 0;
-            opacity: 0.4;
         }
-        .shape-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #818cf8; border-radius: 50%; }
-        .shape-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #c084fc; border-radius: 50%; }
+        .glow-1 { top: -10%; left: 20%; width: 400px; height: 400px; background: var(--brand-primary); opacity: 0.15; }
+        .glow-2 { bottom: -10%; right: 10%; width: 500px; height: 500px; background: var(--brand-secondary); opacity: 0.15; }
 
-        /* --- GLASS CARD CONTENT --- */
+        /* --- HEXAGON GLASS CARD --- */
         .glass-content {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+            background: rgba(2, 6, 23, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 242, 254, 0.2); /* Cyan Border */
+            border-radius: 4px; /* Sharp tech corners */
             padding: 3rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.05);
+            position: relative;
+        }
+        
+        /* Corner Accents for "HUD" look */
+        .glass-content::before {
+            content: ''; position: absolute; top: -1px; left: -1px; width: 20px; height: 20px;
+            border-top: 2px solid var(--brand-primary); border-left: 2px solid var(--brand-primary);
+        }
+        .glass-content::after {
+            content: ''; position: absolute; bottom: -1px; right: -1px; width: 20px; height: 20px;
+            border-bottom: 2px solid var(--brand-primary); border-right: 2px solid var(--brand-primary);
         }
 
         /* Feature Icons */
         .feature-icon-box {
             width: 60px;
             height: 60px;
-            border-radius: 12px;
+            border-radius: 0; /* Square icons */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            color: #a5b4fc;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.75rem;
+            margin-bottom: 1.2rem;
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            color: var(--brand-primary);
+            transition: all 0.3s;
+        }
+        
+        .glass-content:hover .feature-icon-box {
+            background: var(--brand-primary);
+            color: #000;
+            box-shadow: 0 0 20px var(--brand-primary);
         }
 
+        /* --- BUTTONS --- */
         .cta-btn {
-            background: #ffffff;
-            color: #312e81;
-            font-weight: 700;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
+            background: transparent;
+            color: var(--brand-primary);
+            font-weight: 800;
+            padding: 1rem 3rem;
+            border: 2px solid var(--brand-primary);
+            border-radius: 0; /* Hard corners */
             transition: all 0.3s;
-            border: none;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.1em;
+            z-index: 1;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0%; height: 100%;
+            background: var(--brand-primary);
+            transition: all 0.3s;
+            z-index: -1;
         }
 
         .cta-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-            color: #1e1b4b;
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
+        }
+        .cta-btn:hover::before { width: 100%; }
+
+        .btn-outline-tech {
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.7);
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 0;
+            transition: 0.3s;
+            letter-spacing: 0.05em;
+        }
+        .btn-outline-tech:hover {
+            border-color: var(--brand-accent);
+            color: var(--brand-accent);
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            border: 1px solid var(--brand-accent);
+            color: var(--brand-accent);
+            background: rgba(0, 255, 157, 0.05);
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 0.15em;
+            font-weight: 700;
         }
         
-        .nav-link { color: rgba(255,255,255,0.7); transition: 0.3s; }
-        .nav-link:hover { color: white; }
+        .nav-link { 
+            color: rgba(255,255,255,0.6); 
+            font-weight: 600; 
+            transition: 0.2s;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+        .nav-link:hover { color: var(--brand-primary); text-shadow: 0 0 10px var(--brand-primary); }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, #fff, var(--brand-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top py-3">
+    <nav class="navbar navbar-expand-lg fixed-top py-4" style="background: rgba(2,6,23,0.8); backdrop-filter: blur(10px);">
         <div class="container">
-            <a class="navbar-brand text-white fw-bold" href="#">
-                <i class="fa-solid fa-shield-cat me-2"></i>CyberGuard
+            <a class="navbar-brand fw-bold fs-3 text-white" href="#">
+                <i class="fa-solid fa-shield-halved me-2" style="color: var(--brand-primary);"></i>CYBER<span style="color: var(--brand-primary);">GUARD</span>
             </a>
-            <div class="d-none d-md-block">
-                <a href="#" class="nav-link fw-medium">Documentation</a>
+            <button class="navbar-toggler border-0 text-white" type="button">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end">
+                <!-- <ul class="navbar-nav gap-4">
+                    <li class="nav-item"><a href="#" class="nav-link">Platform</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Live Map</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">System</a></li>
+                </ul> -->
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <div class="hero-wrapper">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
+        <!-- Subtle Glows -->
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
 
-        <div class="container position-relative z-1 text-white">
+        <div class="container position-relative z-1">
             <div class="row align-items-center">
                 
-                <!-- Text Content -->
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <div class="d-inline-block border border-white border-opacity-25 rounded-pill px-3 py-1 mb-4 bg-white bg-opacity-10 backdrop-blur-sm">
-                        <span class="text-info fw-bold small"><i class="fa-solid fa-bolt me-1"></i> V2.0 ONLINE</span>
+                <!-- Left: Text Content -->
+                <div class="col-lg-6 mb-5 mb-lg-0 pt-5">
+                    <div class="d-inline-flex align-items-center status-badge px-3 py-2 mb-4">
+                        <i class="fa-solid fa-circle-notch fa-spin me-2"></i>
+                        <span class="small text-uppercase">System Online v2.4</span>
                     </div>
-                    <h1 class="display-3 fw-bold mb-4 lh-sm">Secure Your IoT Infrastructure</h1>
-                    <p class="lead text-white-50 mb-5">
-                        Advanced Intrusion Detection System powered by Random Forest Machine Learning. Detect anomalies, analyze packets, and secure your network in real-time.
+                    
+                    <h1 class="display-2 fw-bolder mb-4 lh-1 text-white">
+                        SECURE THE <br>
+                        <span class="text-gradient">DIGITAL FRONTIER</span>
+                    </h1>
+                    
+                    <p class="lead text-secondary mb-5 pe-lg-5" style="font-weight: 300;">
+                        Deploy autonomous Random Forest sentries to detect network anomalies. Zero latency. 99.9% threat elimination.
                     </p>
                     
-                    <div class="d-flex gap-3">
-                        <!-- THIS IS THE BUTTON THAT LINKS TO THE PREDICT PAGE -->
-                        <a href="{% url 'index' %}" class="btn cta-btn btn-lg">
-                            <i class="fa-solid fa-rocket me-2"></i> Launch Dashboard
+                    <div class="d-flex gap-3 flex-wrap">
+                        <!-- MAIN ACTION BUTTON -->
+                        <a href="{% url 'index' %}" class="btn cta-btn">
+                            INITIALIZE SCAN <i class="fa-solid fa-arrow-right ms-2"></i>
                         </a>
+                        <a href="https://github.com/NandhuSivadas/IOTIntrusionRenterHost" class="btn btn-outline-tech">
+                            <i class="fa-brands fa-github me-2"></i> REPO
+                        </a>
+                    </div>
+                    
+                    <div class="mt-5 d-flex align-items-center gap-5 text-secondary small font-monospace">
+                        <div>
+                            <span class="d-block text-white fw-bold">50ms</span>
+                            LATENCY
+                        </div>
+                        <div>
+                            <span class="d-block text-white fw-bold">AES-256</span>
+                            ENCRYPTION
+                        </div>
+                        <div>
+                            <span class="d-block text-white fw-bold">CSV</span>
+                            COMPATIBLE
+                        </div>
                     </div>
                 </div>
 
-                <!-- Features / Visual -->
+                <!-- Right: Tech HUD Card -->
                 <div class="col-lg-5 offset-lg-1">
                     <div class="glass-content">
                         <div class="row g-4">
-                            <div class="col-md-6">
+                            <!-- Feature 1 -->
+                            <div class="col-6">
                                 <div class="feature-icon-box">
                                     <i class="fa-solid fa-brain"></i>
                                 </div>
-                                <h5 class="fw-bold">AI Analysis</h5>
-                                <p class="text-white-50 small">Uses Random Forest algorithms to classify traffic patterns with high accuracy.</p>
+                                <h5 class="fw-bold mb-1 text-white">NEURAL NET</h5>
+                                <p class="text-secondary small mb-0">AI Logic Core</p>
                             </div>
-                            <div class="col-md-6">
+                            <!-- Feature 2 -->
+                            <div class="col-6">
                                 <div class="feature-icon-box">
-                                    <i class="fa-solid fa-stopwatch"></i>
+                                    <i class="fa-solid fa-crosshairs"></i>
                                 </div>
-                                <h5 class="fw-bold">Real-Time</h5>
-                                <p class="text-white-50 small">Instant processing of CSV network logs to identify threats immediately.</p>
+                                <h5 class="fw-bold mb-1 text-white">TARGETING</h5>
+                                <p class="text-secondary small mb-0">Precision Detection</p>
                             </div>
-                            <div class="col-md-6">
+                            <!-- Feature 3 -->
+                            <div class="col-6">
                                 <div class="feature-icon-box">
-                                    <i class="fa-solid fa-shield-halved"></i>
+                                    <i class="fa-solid fa-database"></i>
                                 </div>
-                                <h5 class="fw-bold">Threat Prevention</h5>
-                                <p class="text-white-50 small">Distinguishes between normal traffic and malicious attacks.</p>
+                                <h5 class="fw-bold mb-1 text-white">DATA MINING</h5>
+                                <p class="text-secondary small mb-0">Bulk CSV Analysis</p>
                             </div>
-                            <div class="col-md-6">
+                            <!-- Feature 4 -->
+                            <div class="col-6">
                                 <div class="feature-icon-box">
-                                    <i class="fa-solid fa-file-csv"></i>
+                                    <i class="fa-solid fa-terminal"></i>
                                 </div>
-                                <h5 class="fw-bold">Data Reports</h5>
-                                <p class="text-white-50 small">Detailed breakdown of every packet with filtering capabilities.</p>
+                                <h5 class="fw-bold mb-1 text-white">CLI READY</h5>
+                                <p class="text-secondary small mb-0">Developer API</p>
                             </div>
+                        </div>
+                        
+                        <hr style="border-color: rgba(255,255,255,0.1); margin: 2rem 0;">
+                        
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="fw-bold text-secondary" style="letter-spacing: 2px; font-size: 0.8rem;">SERVER STATUS</span>
+                            <span class="fw-bold" style="color: var(--brand-accent); letter-spacing: 1px;">
+                                <i class="fa-solid fa-signal me-2"></i>OPTIMAL
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -182,4 +303,4 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html> 
+</html>

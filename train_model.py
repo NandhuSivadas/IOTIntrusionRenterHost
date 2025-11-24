@@ -198,15 +198,15 @@ def train_and_evaluate_model():
     joblib.dump(scaler, os.path.join(model_dir, 'scaler.pkl'))
     
     print("\nStep 9: Training the Random Forest model using the train dataset...")
-    # --- MODIFIED HYPERPARAMETERS FOR HIGHER ACCURACY ---
+   
     rf_model = RandomForestClassifier(
-        n_estimators=200,      # Increased number of trees
-        max_depth=10,         # Increased max depth for more complex trees
-        min_samples_leaf=5,   # Reduced min samples per leaf to allow more fine-grained splits
+        n_estimators=200,    
+        max_depth=10,      
+        min_samples_leaf=5,   
         random_state=42,
-        n_jobs=-1             # Use all available cores for faster training
+        n_jobs=-1            
     )
-    # --- END MODIFIED HYPERPARAMETERS ---
+    
 
     rf_model.fit(X_train, y_train)
     print("✅ Model training complete.")
